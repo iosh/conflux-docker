@@ -8,7 +8,7 @@ on:
       - "!v*-testnet"
 
 env:
-  REGISTRY_IMAGE: confluxchain/conflux-rust
+  REGISTRY_IMAGE: ioshx/conflux-rust
 
 jobs:
   build:
@@ -53,8 +53,8 @@ jobs:
             VERSION=v${{ steps.meta.outputs.version }}
           file: ./Dockerfile.dev.buildx
           platforms: ${{ matrix.platform }}
-          tags: confluxchain/conflux-rust:${{ steps.meta.outputs.version }},confluxchain/conflux-rust:latest
-          outputs: type=image,name=confluxchain/conflux-rust,push-by-digest=true,name-canonical=true,push=true
+          tags: ioshx/conflux-rust:${{ steps.meta.outputs.version }},ioshx/conflux-rust:latest
+          outputs: type=image,name=ioshx/conflux-rust,push-by-digest=true,name-canonical=true,push=true
 
       - name: Export digest
         run: |
