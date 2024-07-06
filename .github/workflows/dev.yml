@@ -18,7 +18,6 @@ jobs:
       matrix:
         platform:
           - linux/amd64
-          - linux/arm64
 
     steps:
       - name: Prepare
@@ -53,8 +52,8 @@ jobs:
             VERSION=v${{ steps.meta.outputs.version }}
           file: ./Dockerfile.dev.buildx
           platforms: ${{ matrix.platform }}
-          tags: ioshx/conflux-rust:${{ steps.meta.outputs.version }},ioshx/conflux-rust:latest
-          outputs: type=image,name=ioshx/conflux-rust,push-by-digest=true,name-canonical=true,push=true
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
       - name: Export digest
         run: |
