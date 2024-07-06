@@ -34,7 +34,7 @@ jobs:
         run: |
           platform=${{ matrix.platform }}
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-          [[ ${{ steps.meta.outputs.version }} == *-testnet* ]] && echo "NET_SUFFIX=-testnet" >> ${GITHUB_OUTPUT} || echo "NET_SUFFIX=" >> ${GITHUB_OUTPUT}
+          [[ ${{ steps.meta.outputs.version }} == *-testnet* ]] && echo "CONFLUX_GIT_TAG=${{ steps.meta.outputs.version }}" >> ${GITHUB_OUTPUT} || echo "CONFLUX_GIT_TAG={${{ steps.meta.outputs.version }}%-mainnet}" >> ${GITHUB_OUTPUT}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION=v${{ steps.meta.outputs.major }}.${{ steps.meta.outputs.minor }}.${{ steps.meta.outputs.patch }}${{ steps.prepare.outputs.NET_SUFFIX }}
+            VERSION=v${{ steps.prepare.outputs.CONFLUX_GIT_TAG }}
           file: ./Dockerfile.buildx
           platforms: ${{ matrix.platform }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
