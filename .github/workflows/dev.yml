@@ -8,7 +8,7 @@ on:
       - "!v*-testnet"
 
 env:
-  REGISTRY_IMAGE: confluxchain/conflux-rust
+  REGISTRY_IMAGE: ioshx/conflux-rust
 
 jobs:
   build:
